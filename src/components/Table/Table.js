@@ -4,8 +4,6 @@ import { deleteService } from "~/services/deleteServices";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-
-
 function Table({ studentsData }) {
     const navigate = useNavigate();
 
@@ -17,6 +15,10 @@ function Table({ studentsData }) {
     const [data, setData] = useState([]);
     // State to store student to be deleted
     const [studentToDelete, setStudentToDelete] = useState(null); 
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -27,7 +29,6 @@ function Table({ studentsData }) {
                 console.error("Error fetching student data:", error);
             }
         };
-
         fetchData();
     }, [studentsData]);
 
@@ -55,7 +56,7 @@ function Table({ studentsData }) {
             <thead className="table-success">
                 <tr>
                     <th>MSSV</th>
-                    <th>Name</th>
+                    <th>Họ Tên</th>
                     <th>Giữa Kỳ</th>
                     <th>Thường Kỳ</th>
                     <th>Thực Hành</th>
@@ -81,36 +82,39 @@ function Table({ studentsData }) {
                                 to={`/student/update/${student.mssv}`}
                                 className="btn btn-outline-info btn-lg btn-block me-2"
                             >
-                                Edit
+                                Sửa
                             </Link>
                             {/* Button to set the student to delete */}
-                            <button type="button" className="btn btn-outline-danger btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#deleteModal" onClick={() => onDeleteClick(student.mssv)}>
+                            {/* <button type="button" className="btn btn-outline-danger btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#deleteModal" onClick={() => onDeleteClick(student.mssv)}>
                                 Delete
-                            </button>
+                            </button> */}
+                            <Button variant="outline-warning " size="lg" onClick={handleShow}>
+                                Xóa
+                                {console.log('show', show)}
+                            </Button>
+                            {/* Modal to confirm deletion */}
+                            <Modal show={show} onHide={handleClose}>
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Xóa Sinh Viên ?</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    Bạn chắc chắn muốn xóa sinh viên này? Sau khi xóa sẽ không thể khôi phục lại!!
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={handleClose}>
+                                        Đóng
+                                    </Button>
+                                    <Button variant="primary" onClick={handleDeleteConfirmation}>
+                                        Xóa
+                                    </Button>
+                                </Modal.Footer>
+                            </Modal>
                         </td>
                     </tr>
                 ))}
             </tbody>
         </table>
-        {/* Modal for delete confirmation */}
-        {studentToDelete && (
-            <Modal show={studentToDelete !== null} onHide={() => setStudentToDelete(null)}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Xóa Sinh Viên ?</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    Bạn chắc chắn muốn xóa sinh viên này? Sau khi xóa sẽ không thể khôi phục lại!!
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setStudentToDelete(null)}>
-                        Đóng
-                    </Button>
-                    <Button variant="primary" onClick={handleDeleteConfirmation}>
-                        Xóa
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-        )}
+        
         </>
     );
 }

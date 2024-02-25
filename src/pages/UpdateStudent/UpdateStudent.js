@@ -137,7 +137,7 @@ function UpdateStudent() {
                                         type="submit"
                                         className="btn btn-lg btn-outline-warning btn-block mt-4 mb-4 w-100"
                                     >
-                                        Submit
+                                        Cập nhật
                                     </button>
                                 </div>
                             </div>

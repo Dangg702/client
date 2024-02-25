@@ -12,18 +12,18 @@ function Home() {
     }, []);
 
     return ( 
-      <div className='ShowStudentList'>
-      <div className='container'>
-        <div className='row'>
-          <div className='col-md-12'>
+      <div >
+      <div class='container'>
+        <div class='row'>
+          <div class='col-md-12'>
             <br />
-            <h2 className='display-4 text-center'>Danh sách sinh viên</h2>
+            <h2 class='display-4 text-center'>Danh sách sinh viên</h2>
           </div>
 
-          <div className='col-md-11'>
+          <div class='col-md-11'>
             <Link
               to='/student/create'
-              className='btn btn-lg btn-outline-warning float-right'
+              class='btn btn-lg btn-outline-warning float-right'
             >
               + Thêm sinh viên 
             </Link>
@@ -33,7 +33,7 @@ function Home() {
           </div>
         </div>
 
-        <div className='list'>
+        <div class='list'>
             {students.length === 0 ? <h4>Danh sách trống !!!</h4> : <Table studentsData={students}></Table> }
         </div>
       </div>

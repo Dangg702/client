@@ -31,7 +31,7 @@ const StudentPage = () => {
   const handleSearch = () => {
     // refetch();
     fetchData();
-    // setSearchId("");
+    setSearchId("");
   };
 
 
@@ -79,7 +79,7 @@ const StudentPage = () => {
         </tbody>
       </table>
       ) : (
-        <div></div>
+        <h3 style={{textAlign: 'center', marginTop: '16px'}}>Kết quả trống</h3>
       )}
     </div>
   );
